@@ -27,3 +27,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# 디렉토리 추가
+.idea/
+Algorithm.iml
