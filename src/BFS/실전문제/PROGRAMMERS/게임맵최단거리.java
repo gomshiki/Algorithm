@@ -1,4 +1,4 @@
-package BFS.실전문제;
+package BFS.실전문제.PROGRAMMERS;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -54,4 +54,3 @@ public class 게임맵최단거리 {
 
     }
 }
-
