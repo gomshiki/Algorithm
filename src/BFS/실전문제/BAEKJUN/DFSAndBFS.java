@@ -3,12 +3,14 @@ package BFS.실전문제.BAEKJUN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -28,11 +30,11 @@ public class DFSAndBFS {
      *
      * 입력 예시
      * 4 5 1 (정점 개수, 간선 개수, 시작 정점의 번호)
-     * 1 2 (1번 노드와 2번 노드 연결)
-     * 1 3 (1번 노드와 3번 노드 연결)
-     * 1 4 (1번 노드와 4번 노드 연결)
-     * 2 4 (2번 노드와 4번 노드 연결)
-     * 3 4 (3번 노드와 4번 노드 연결)
+     * 1 2   (1번 노드와 2번 노드 연결)
+     * 1 3   (1번 노드와 3번 노드 연결)
+     * 1 4   (1번 노드와 4번 노드 연결)
+     * 2 4   (2번 노드와 4번 노드 연결)
+     * 3 4   (3번 노드와 4번 노드 연결)
      */
 
     public static void main(String[] args) throws IOException {
@@ -48,39 +50,53 @@ public class DFSAndBFS {
         int branchCount = Integer.parseInt(st.nextToken());
         int startNode = Integer.parseInt(st.nextToken());
 
-        List<Object> list = Arrays.asList();
-
-
-
 
         // 간선의 개수 만큼 간선 정보를 입력받음
-        // 입력받은 String 데이터를 2차원 int 배열로 !!
-        ArrayList<int[]> graph = new ArrayList<>(Arrays.asList());
+        // 입력받은 String 데이터를 ArrayList<int[]>로 변환 !!
+   /*     ArrayList<int[]> graph = new ArrayList<>(Arrays.asList());
 
         for (int i = 0; i < branchCount; i++) {
             String[] s = br.readLine().split(" ");
 
             graph.add(Arrays.stream(s).mapToInt(Integer::parseInt).toArray());
 
-        }
-
-        for (int[] ints : graph) {
-            System.out.println(Arrays.toString(ints));
-        }
+        }*/
 
 
+        // 간선의 개수 만큼 간선 정보를 입력받음
+        // 입력받은 String 데이터를 int[][] 배열로 !!
+        int[][] graph = IntStream.range(0, branchCount)
+                .mapToObj(i -> {
+                    StringTokenizer st1 = null;
 
+                    try {
+                        st1 = new StringTokenizer(br.readLine());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    return new int[]{Integer.parseInt(st1.nextToken()), Integer.parseInt(st1.nextToken())};
+                        }
+
+                ).toArray(int[][]::new);
+
+        // bfs(graph);
+
+        System.out.println("graph = " + graph[0][0]);
 
 
 
     }
 
     // bfs 포맷 정의
-    static void bfs() {
+    static void bfs(ArrayList<int[]> graph) {
 
         Queue<Integer> q = new LinkedList<>();
 
-        q.offer(null);
+        int firstPointX = 0;
+        int firstPointY = 0;
+
+        q.offer(graph.get(firstPointX)[firstPointY]);
 
         while (!q.isEmpty()) {
 
