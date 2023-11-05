@@ -66,24 +66,23 @@ public class DFSAndBFS {
         // 간선의 개수 만큼 간선 정보를 입력받음
         // 입력받은 String 데이터를 int[][] 배열로 !!
         int[][] graph = IntStream.range(0, branchCount)
-                .mapToObj(i -> {
-                    StringTokenizer st1 = null;
+                .mapToObj(
+                        i -> {
 
-                    try {
-                        st1 = new StringTokenizer(br.readLine());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                        try {
+                            String[] s = br.readLine().split(" ");
+                            return new int[]{Integer.parseInt(s[0]), Integer.parseInt(s[1])};
 
-                    return new int[]{Integer.parseInt(st1.nextToken()), Integer.parseInt(st1.nextToken())};
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
 
+                    }
                 ).toArray(int[][]::new);
 
         // bfs(graph);
 
-        System.out.println("graph = " + graph[0][0]);
-
+        System.out.println(graph[0][1]);
 
 
     }
