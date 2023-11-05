@@ -3,11 +3,14 @@ package BFS.실전문제.BAEKJUN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class DFSAndBFS {
 
@@ -45,18 +48,28 @@ public class DFSAndBFS {
         int branchCount = Integer.parseInt(st.nextToken());
         int startNode = Integer.parseInt(st.nextToken());
 
+        List<Object> list = Arrays.asList();
+
+
 
 
         // 간선의 개수 만큼 간선 정보를 입력받음
+        // 입력받은 String 데이터를 2차원 int 배열로 !!
+        ArrayList<int[]> graph = new ArrayList<>(Arrays.asList());
+
         for (int i = 0; i < branchCount; i++) {
+            String[] s = br.readLine().split(" ");
 
-            // 스트림으로 String[] -> int[] 로 변환
-            IntStream intStream = Arrays.stream(br.readLine().split(" "))
-                    .mapToInt(Integer::parseInt);
-
-            int[] array = intStream.toArray();
+            graph.add(Arrays.stream(s).mapToInt(Integer::parseInt).toArray());
 
         }
+
+        for (int[] ints : graph) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+
+
 
 
 
