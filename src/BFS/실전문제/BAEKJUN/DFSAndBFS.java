@@ -50,17 +50,7 @@ public class DFSAndBFS {
         int branchCount = Integer.parseInt(st.nextToken());
         int startNode = Integer.parseInt(st.nextToken());
 
-
-        // 간선의 개수 만큼 간선 정보를 입력받음
-        // 입력받은 String 데이터를 ArrayList<int[]>로 변환 !!
-   /*     ArrayList<int[]> graph = new ArrayList<>(Arrays.asList());
-
-        for (int i = 0; i < branchCount; i++) {
-            String[] s = br.readLine().split(" ");
-
-            graph.add(Arrays.stream(s).mapToInt(Integer::parseInt).toArray());
-
-        }*/
+        int[][] visited = new int[nodeCount][branchCount];
 
 
         // 간선의 개수 만큼 간선 정보를 입력받음
@@ -80,30 +70,39 @@ public class DFSAndBFS {
                     }
                 ).toArray(int[][]::new);
 
-        // bfs(graph);
+         bfs(graph, visited);
 
-        System.out.println(graph[0][1]);
 
 
     }
 
     // bfs 포맷 정의
-    static void bfs(ArrayList<int[]> graph) {
+    static void bfs(int[][] graph, int[][] visited) {
 
         Queue<Integer> q = new LinkedList<>();
 
         int firstPointX = 0;
         int firstPointY = 0;
 
-        q.offer(graph.get(firstPointX)[firstPointY]);
+        // 시작점 입력
+        q.offer(graph[firstPointX][firstPointY]);
 
         while (!q.isEmpty()) {
 
+            int temp = q.remove();
 
-            if(false){
+            for (int i = 0; i < graph[0].length; i++) {
 
-                q.offer(null);
+
+
+                if(visited[temp][i] == 0){
+
+                    q.offer(null);
+                }
             }
+
+
+
         }
 
     }
