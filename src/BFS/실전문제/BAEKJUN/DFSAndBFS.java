@@ -70,41 +70,49 @@ public class DFSAndBFS {
                     }
                 ).toArray(int[][]::new);
 
-         bfs(graph, visited);
+        String result = bfs(graph, visited, startNode);
 
-
+        System.out.println("result = " + result);
 
     }
 
     // bfs 포맷 정의
-    static void bfs(int[][] graph, int[][] visited) {
+    static String bfs(int[][] graph, int[][] visited, int startNode) {
+
+        StringBuilder sb = new StringBuilder();
 
         Queue<Integer> q = new LinkedList<>();
 
-        int firstPointX = 0;
-        int firstPointY = 0;
-
         // 시작점 입력
-        q.offer(graph[firstPointX][firstPointY]);
+        q.offer(startNode);
+
+        // 방문 처리
+        visited[0][0] = 1;
 
         while (!q.isEmpty()) {
 
-            int temp = q.remove();
+            int currentNode = q.remove();
+            System.out.println("currentNode = " + currentNode);
+
+            sb.append(currentNode + " ");
 
             for (int i = 0; i < graph[0].length; i++) {
 
+                // 1, 2
+                int temp = graph[currentNode][i];
 
+                System.out.println("temp = " + temp);
 
                 if(visited[temp][i] == 0){
-
-                    q.offer(null);
+                    visited[temp][i] = 1;
+                    q.offer(temp);
                 }
             }
 
 
 
         }
-
+        return sb.toString();
     }
 
 }
