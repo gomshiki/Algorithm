@@ -101,6 +101,7 @@ public class DFSAndBFS {
                 // 1, 2
                 int temp = graph[currentNode][i];
 
+
                 System.out.println("temp = " + temp);
 
                 if(visited[temp][i] == 0){
