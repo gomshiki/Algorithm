@@ -52,6 +52,8 @@ public class DFSAndBFS {
 
         int[][] visited = new int[nodeCount][branchCount];
 
+        StringBuilder sb = new StringBuilder();
+
 
         // 간선의 개수 만큼 간선 정보를 입력받음
         // 입력받은 String 데이터를 int[][] 배열로 !!
@@ -79,7 +81,6 @@ public class DFSAndBFS {
     // bfs 포맷 정의
     static String bfs(int[][] graph, int[][] visited, int startNode) {
 
-        StringBuilder sb = new StringBuilder();
 
         Queue<Integer> q = new LinkedList<>();
 
