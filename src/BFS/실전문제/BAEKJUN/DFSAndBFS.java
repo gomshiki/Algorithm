@@ -35,7 +35,14 @@ public class DFSAndBFS {
      * 1 4   (1번 노드와 4번 노드 연결)
      * 2 4   (2번 노드와 4번 노드 연결)
      * 3 4   (3번 노드와 4번 노드 연결)
+     *
+     * 출력 예시
+     * 1 2 4 3 // DFS
+     * 1 2 3 4 // BFS
      */
+
+    static StringBuilder sb = new StringBuilder();
+
 
     public static void main(String[] args) throws IOException {
 
@@ -46,17 +53,17 @@ public class DFSAndBFS {
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         // 각 변수에 입력받은 값 선언
-        int nodeCount = Integer.parseInt(st.nextToken());
-        int branchCount = Integer.parseInt(st.nextToken());
+        int nodeCount = Integer.parseInt(st.nextToken()); // 4
+        int branchCount = Integer.parseInt(st.nextToken()); // 5
         int startNode = Integer.parseInt(st.nextToken());
 
-        int[][] visited = new int[nodeCount][branchCount];
+        int[][] visited = new int[nodeCount+1][nodeCount+1]; // int[5][5]
 
-        StringBuilder sb = new StringBuilder();
 
 
         // 간선의 개수 만큼 간선 정보를 입력받음
         // 입력받은 String 데이터를 int[][] 배열로 !!
+        // graph[6][2] =  { {}, {1,2}, {1,3}, {1,4}, {2,4}, {3,4} }
         int[][] graph = IntStream.range(0, branchCount)
                 .mapToObj(
                         i -> {
@@ -84,29 +91,27 @@ public class DFSAndBFS {
 
         Queue<Integer> q = new LinkedList<>();
 
-        // 시작점 입력
+        // 시작노드 : 1
         q.offer(startNode);
 
         // 방문 처리
-        visited[0][0] = 1;
+        visited[startNode][startNode] = 1;
 
         while (!q.isEmpty()) {
 
-            int currentNode = q.remove();
+            int currentNode = q.remove(); // currentNode : 1
+
             System.out.println("currentNode = " + currentNode);
+            sb.append(currentNode + " "); // 1 + " "
 
-            sb.append(currentNode + " ");
+            for (int i = 0; i < graph[0].length; i++) { // graph[0].length = 2
 
-            for (int i = 0; i < graph[0].length; i++) {
+                int temp = graph[currentNode - 1][i];  // graph[1][0 ~ 1]
+                System.out.println("temp["+i+"] = " + temp);
 
-                // 1, 2
-                int temp = graph[currentNode][i];
-
-
-                System.out.println("temp = " + temp);
-
-                if(visited[temp][i] == 0){
-                    visited[temp][i] = 1;
+                // 방문 여부 확인
+                if(visited[temp][i+1] == 0){
+                    visited[temp][i+1] = 1;
                     q.offer(temp);
                 }
             }
