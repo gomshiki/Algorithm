@@ -57,66 +57,45 @@ public class DFSAndBFS {
         int branchCount = Integer.parseInt(st.nextToken()); // 5
         int startNode = Integer.parseInt(st.nextToken());
 
-        int[][] visited = new int[nodeCount+1][nodeCount+1]; // int[5][5]
+        int[][] treeArray = new int[nodeCount + 1][nodeCount + 1];
+
+        int[] visited = new int[nodeCount + 1];
+
+        for (int i = 0; i < branchCount; i++) {
+
+            String[] s = br.readLine().split(" ");
+
+            int A = Integer.parseInt(s[i]);
+            int B = Integer.parseInt(s[i + 1]);
+
+            treeArray[A][B] = treeArray[B][A] = 1;
+
+        }
+
+        bfs(treeArray, visited, startNode);
 
 
 
-        // 간선의 개수 만큼 간선 정보를 입력받음
-        // 입력받은 String 데이터를 int[][] 배열로 !!
-        // graph[6][2] =  { {}, {1,2}, {1,3}, {1,4}, {2,4}, {3,4} }
-        int[][] graph = IntStream.range(0, branchCount)
-                .mapToObj(
-                        i -> {
 
-                        try {
-                            String[] s = br.readLine().split(" ");
-                            return new int[]{Integer.parseInt(s[0]), Integer.parseInt(s[1])};
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                    }
-                ).toArray(int[][]::new);
-
-        String result = bfs(graph, visited, startNode);
-
-        System.out.println("result = " + result);
 
     }
 
     // bfs 포맷 정의
-    static String bfs(int[][] graph, int[][] visited, int startNode) {
-
+    static String bfs(int[][] treeArray, int[] visited, int startNode) {
 
         Queue<Integer> q = new LinkedList<>();
 
-        // 시작노드 : 1
         q.offer(startNode);
 
-        // 방문 처리
-        visited[startNode][startNode] = 1;
+        visited[startNode] = 1;
 
         while (!q.isEmpty()) {
 
-            int currentNode = q.remove(); // currentNode : 1
+            int currentNode = q.poll();
 
-            System.out.println("currentNode = " + currentNode);
-            sb.append(currentNode + " "); // 1 + " "
-
-            for (int i = 0; i < graph[0].length; i++) { // graph[0].length = 2
-
-                int temp = graph[currentNode - 1][i];  // graph[1][0 ~ 1]
-                System.out.println("temp["+i+"] = " + temp);
-
-                // 방문 여부 확인
-                if(visited[temp][i+1] == 0){
-                    visited[temp][i+1] = 1;
-                    q.offer(temp);
-                }
+            for (int i = 0; i < ; i++) {
+                
             }
-
-
 
         }
         return sb.toString();
