@@ -59,7 +59,7 @@ public class DFSAndBFS {
 
         int[][] treeArray = new int[nodeCount + 1][nodeCount + 1];
 
-        int[] visited = new int[nodeCount + 1];
+        boolean[] visited = new boolean[][nodeCount + 1];
 
         for (int i = 0; i < branchCount; i++) {
 
@@ -81,19 +81,19 @@ public class DFSAndBFS {
     }
 
     // bfs 포맷 정의
-    static String bfs(int[][] treeArray, int[] visited, int startNode) {
+    static String bfs(int[][] treeArray, boolean[] visited, int startNode) {
 
         Queue<Integer> q = new LinkedList<>();
 
         q.offer(startNode);
 
-        visited[startNode] = 1;
+        visited[startNode] = true;
 
         while (!q.isEmpty()) {
 
             int currentNode = q.poll();
 
-            for (int i = 0; i < ; i++) {
+            for (int i = 0; i < treeArray[0].length; i++) {
                 
             }
 
