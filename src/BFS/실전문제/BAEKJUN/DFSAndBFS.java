@@ -43,61 +43,93 @@ public class DFSAndBFS {
 
     static StringBuilder sb = new StringBuilder();
 
+    static int[][] treeArray;
+    static boolean[] visited;
+    static Queue<Integer> queue = new LinkedList<>();
+
+    static int nodeCount, branchCount, startNode;
+
 
     public static void main(String[] args) throws IOException {
 
-        // 값을 입력받을 버퍼리더 선언
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // 입력받은 버퍼르 토크나이저로 쪼개서 초기화
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        // 각 변수에 입력받은 값 선언
-        int nodeCount = Integer.parseInt(st.nextToken()); // 4
-        int branchCount = Integer.parseInt(st.nextToken()); // 5
-        int startNode = Integer.parseInt(st.nextToken());
+        nodeCount = Integer.parseInt(st.nextToken());
+        branchCount = Integer.parseInt(st.nextToken());
+        startNode = Integer.parseInt(st.nextToken());
 
-        int[][] treeArray = new int[nodeCount + 1][nodeCount + 1];
+        treeArray = new int[nodeCount + 1][nodeCount + 1];
 
-        boolean[] visited = new boolean[][nodeCount + 1];
+        visited = new boolean[nodeCount + 1];
 
         for (int i = 0; i < branchCount; i++) {
 
-            String[] s = br.readLine().split(" ");
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
 
-            int A = Integer.parseInt(s[i]);
-            int B = Integer.parseInt(s[i + 1]);
-
-            treeArray[A][B] = treeArray[B][A] = 1;
+            int a = Integer.parseInt(st2.nextToken());
+            System.out.println("a = " + a);
+            int b = Integer.parseInt(st2.nextToken());
+            System.out.println("b = " + b);
+            treeArray[a][b] = treeArray[b][a] = 1;
+            System.out.println("treeArray[" + a + "][" + b + "] = " + treeArray[a][b]);
 
         }
 
-        bfs(treeArray, visited, startNode);
+        String bfs = bfs(startNode);
 
-
-
-
-
+        System.out.println("bfs = " + bfs);
     }
 
     // bfs 포맷 정의
-    static String bfs(int[][] treeArray, boolean[] visited, int startNode) {
+    static String bfs(int startNode) {
 
-        Queue<Integer> q = new LinkedList<>();
+        // 시작노드 입력
+        queue.offer(startNode);
 
-        q.offer(startNode);
-
+        // 첫번째 노드 방문 처리
         visited[startNode] = true;
 
-        while (!q.isEmpty()) {
 
-            int currentNode = q.poll();
+        // 큐가 빌때까지 반복
+        while (!queue.isEmpty()) {
 
-            for (int i = 0; i < treeArray[0].length; i++) {
-                
+            // 큐안에 있는 값 빼기
+            int currentNode = queue.poll();
+
+            // StringBuilder에 저장
+            sb.append(currentNode + " ");
+
+            System.out.println("======================= 큐에서 뺀 노드 ======================");
+            System.out.println("currentNode = " + currentNode);
+            System.out.println();
+            // 전체 노드 갯수 만큼 반복문
+            for (int i = 1; i < nodeCount + 1; i++) {
+                System.out.println("================================================================");
+                System.out.println("treeArray[" + currentNode + "][" + i + "] = " + treeArray[currentNode][i]);
+                System.out.println("visited[" + i + "] = " + !visited[i]);
+                System.out.println("================================================================");
+
+                // treeArray[currentNode][i] == 1 인 경우 && visited[i] 방문 안했을 경우
+                if (treeArray[currentNode][i] == 1 && !visited[i]) {
+
+                    // 그때 노드를 queue에 넣기
+                    System.out.println("Queue에 넣는 노드index= " + i);
+                    queue.add(i);
+                    // 넣은 노드 방문처리
+                    visited[i] = true;
+
+                }
+
+
             }
 
         }
+
+
+
+
         return sb.toString();
     }
 
