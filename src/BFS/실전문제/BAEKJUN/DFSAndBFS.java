@@ -21,6 +21,12 @@ public class DFSAndBFS {
      * (1번 노드와 4번 노드 연결) 2 4   (2번 노드와 4번 노드 연결) 3 4   (3번 노드와 4번 노드 연결)
      * <p>
      * 출력 예시 1 2 4 3 // DFS 1 2 3 4 // BFS
+     * 4 5 1
+     * 1 2
+     * 1 3
+     * 1 4
+     * 2 4
+     * 3 4
      */
 
     static Queue<Integer> q = new LinkedList<>();
@@ -63,6 +69,8 @@ public class DFSAndBFS {
         // Stringbuilder 초기화
         sb.setLength(0);
 
+
+        visited = new boolean[node + 1];
         String dfs = dfs(start);
         System.out.println("dfs = " + dfs);
 
@@ -89,15 +97,24 @@ public class DFSAndBFS {
                 }
             }
         }
-
         return sb.toString();
     }
 
+    // 1 2 4 3
     static String dfs(int start) {
 
+        visited[start] = true;
+
+        // 방문한 노드에 인접한 노드 찾기
+        for (int i = 1 ; i <= node; i++) {
 
 
 
+            // 인접한 노드가 방문한 적이 없다면 DFS 수행
+            if(graph[] && !visited[node]){
+                dfs(node);
+            }
+        }
 
 
         return sb.toString();
