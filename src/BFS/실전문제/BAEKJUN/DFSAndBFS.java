@@ -111,7 +111,7 @@ public class DFSAndBFS {
 
 
             // 인접한 노드가 방문한 적이 없다면 DFS 수행
-            if(graph[] && !visited[node]){
+            if(graph[][] && !visited[node]){
                 dfs(node);
             }
         }
