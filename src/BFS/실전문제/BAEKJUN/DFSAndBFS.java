@@ -63,20 +63,19 @@ public class DFSAndBFS {
             graph[a][b] = graph[b][a] = 1;
         }
 
-        String bfs = bfs(start);
-        System.out.println("bfs = " + bfs);
+        bfs(start);
 
         // Stringbuilder 초기화
-        sb.setLength(0);
-
+        sb.append("\n");
 
         visited = new boolean[node + 1];
-        String dfs = dfs(start);
-        System.out.println("dfs = " + dfs);
+        dfs(start);
+
+        System.out.println(sb.toString());
 
     }
 
-    static String bfs(int start){
+    static void bfs(int start){
 
         q.offer(start);
         visited[start] = true;
@@ -97,26 +96,24 @@ public class DFSAndBFS {
                 }
             }
         }
-        return sb.toString();
     }
 
-    // 1 2 4 3
-    static String dfs(int start) {
+    // 출력 결과 : 1 2 4 3
+    static void dfs(int start) {
 
         visited[start] = true;
+        sb.append(start + " ");
 
         // 방문한 노드에 인접한 노드 찾기
         for (int i = 1 ; i <= node; i++) {
 
-
-
             // 인접한 노드가 방문한 적이 없다면 DFS 수행
-            if(graph[][] && !visited[node]){
-                dfs(node);
+            if(graph[start][i]==1 && !visited[i]){
+
+                dfs(i);
+
             }
         }
 
-
-        return sb.toString();
     }
 }
