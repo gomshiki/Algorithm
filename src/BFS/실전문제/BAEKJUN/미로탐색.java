@@ -3,15 +3,17 @@ package BFS.실전문제.BAEKJUN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class 미로탐색 {
 
 
-    static int[][] graph;
+    static int[][] grid;
 
     static int[] directionX = {1, 0, -1, 0};
     static int[] directionY = {0, 1, 0, -1};
@@ -42,22 +44,18 @@ public class 미로탐색 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        graph = new int[N+1][M+1]; // 4x6 행렬
+        grid = new int[N + 1][M + 1];
 
-        for (int i = 1; i < N+1; i++) {
+        // 입력받은 문자열을 2차원 int 배열로 변환하기
+        for (int i = 0; i < N; i++) {
 
-            String[] s = br.readLine().split("");
-
-            for (int j = 1; j < M+1; j++) {
-
-                graph[i][j] = Integer.parseInt(s[j-1]);
-                System.out.println("graph["+i+"]["+j+"] = " + graph[i][j]);
-
-            }
+            String[] s = br.readLine().split(""); // 입력받은 문자열을 한개씩 잘라 문자열배열로
+            int[] row = Stream.of(s).mapToInt(Integer::parseInt).toArray(); // 문자열배열을 int[] 배열로
+            grid[i] = row; // int[] 배열을 선언된 grid[][] 에 할당
 
         }
 
-        bfs();
+        System.out.println(Arrays.deepToString(grid)); // 출력 테스트
 
 
 
@@ -80,16 +78,30 @@ public class 미로탐색 {
 
         while (!q.isEmpty()) {
 
-            int[][] currentNode = q.poll();
+            int[][] currentNode = q.poll(); // 1,1 = 1
 
-            for (int i = 0; i < ; i++) {
+            int startX = 1;
+            int startY = 1;
 
-                if (visited) {
+            for (int i = 0; i < 4; i++) {
+
+                int nextX = startX + directionX[i];
+                int nextY = startY + directionY[i];
+
+                if (nextX < 0 || nextY < 0) {
+                    continue;
+                }
+
+            }
+
+        /*    for (int i = 0; i < ; i++) {
+
+                if (grid[][] && !visited[][]) {
                     visited[][] = true;
                     q.offer()
                 }
 
-            }
+            }*/
 
         }
 
