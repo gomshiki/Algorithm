@@ -3,7 +3,6 @@ package BFS.실전문제.BAEKJUN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,6 +18,7 @@ public class 미로탐색 {
     static int[] directionY = {0, 1, 0, -1};
 
     static boolean[][] visited;
+
     public static void main(String[] args) throws IOException {
 
         /**
@@ -45,6 +45,7 @@ public class 미로탐색 {
         int M = Integer.parseInt(st.nextToken());
 
         grid = new int[N + 1][M + 1];
+        visited = new boolean[N + 1][M + 1];
 
         // 입력받은 문자열을 2차원 int 배열로 변환하기
         for (int i = 0; i < N; i++) {
@@ -55,55 +56,86 @@ public class 미로탐색 {
 
         }
 
-        System.out.println(Arrays.deepToString(grid)); // 출력 테스트
 
-
-
-
-
-
-
-
-
-
+        bfs();
 
     }
 
-    static void bfs(){
+    static int bfs(){
 
         Queue<int[][]> q = new LinkedList<>();
 
-        q. offer(new int[1][1]);
+        int[][] startNode = new int[][]{{0, 0}};
+
+        // 첫번째 노드 방문처리
+        visited[0][0] = true;
+        int count = 0;
+
+        q.offer(startNode);
 
 
         while (!q.isEmpty()) {
 
-            int[][] currentNode = q.poll(); // 1,1 = 1
+            System.out.println("********* while문 시작 **********");
 
-            int startX = 1;
-            int startY = 1;
+            int[][] currentNode = q.poll(); // 0,0 = 1
+            System.out.println("currentNode = " + Arrays.deepToString(currentNode));
 
+            // 4 방향 확인
             for (int i = 0; i < 4; i++) {
+                System.out.println(" =========================== for문 시작 ========================");
+                System.out.println(i+"번째 출력");
 
-                int nextX = startX + directionX[i];
-                int nextY = startY + directionY[i];
+                int currentX = currentNode[0][1];
+                int currentY = currentNode[0][0];
 
-                if (nextX < 0 || nextY < 0) {
+                System.out.println("currentY = " + currentY);
+                System.out.println("currentX = " + currentX);
+
+
+                int nextNodeX = currentX + directionX[i]; // 1, 0, -1, 0
+                int nextNodeY = currentY + directionY[i]; // 0, 1, 0, -1
+
+                System.out.println("nextNodeY = " + nextNodeY);
+                System.out.println("nextNodeX = " + nextNodeX);
+
+                // 현재 노드 기준
+                // 남쪽 grid[1][0] = 1,               동쪽 grid[0][1] = 0
+                // 북쪽 gird[-1][0] = outOfIndex,     서쪽 grid[0][-1] = outOfIndex
+
+
+                // 옆이 벽면일 경우 제외
+                if (nextNodeX < 0 || nextNodeY < 0 || nextNodeX > grid[0].length - 1 || nextNodeY > grid.length -1 ) {
+                    System.out.println("옆면이 벽면임 = ");
                     continue;
+
                 }
 
+                System.out.println("grid[nextNodeY][nextNodeX] = " + grid[nextNodeY][nextNodeX]);
+                // i=0, nextX = 1, nextY = 0
+                if (grid[nextNodeY][nextNodeX] == 1 && !visited[nextNodeY][nextNodeX]) {
+                    System.out.println("----------"+i+"번째 큐에 넣는 조건 검사중!!----------");
+                    System.out.println("nextNodeY = " + nextNodeY);
+                    System.out.println("nextNodeX = " + nextNodeX);
+
+                    q.offer(new int[][]{{nextNodeY, nextNodeX}});
+                    System.out.println("q에 nextNode 닮긴값 ==> ["+nextNodeY+"]["+nextNodeX+"]" );
+                    count++;
+                    visited[currentY][currentX] = true;
+                }
+
+                System.out.println(" =========================== for문 종료 ========================");
+                System.out.println();
             }
 
-        /*    for (int i = 0; i < ; i++) {
-
-                if (grid[][] && !visited[][]) {
-                    visited[][] = true;
-                    q.offer()
-                }
-
-            }*/
+            System.out.println("********* while문 진행 중  **********");
+            System.out.println();
 
         }
+
+        System.out.println("********* while문 종료 **********");
+
+        return count;
 
     };
 }
