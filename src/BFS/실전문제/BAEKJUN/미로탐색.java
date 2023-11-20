@@ -19,7 +19,7 @@ public class 미로탐색 {
     static int[] directionY = {0, 1, 0, -1};
 
     static boolean[][] visited;
-    static ArrayList minDistance = new ArrayList<>();
+     static ArrayList<Integer> minDistance = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -58,11 +58,23 @@ public class 미로탐색 {
 
         }
 
-        System.out.println(bfs());
+        bfs();
+
+
+        int min = minDistance.get(0);
+        for (int i = 1; i < minDistance.size(); i++) {
+
+            if (min > minDistance.get(i)) {
+                min = minDistance.get(i);
+            }
+
+        }
+
+        System.out.println("min = " + min);
 
     }
 
-    static int bfs(){
+    static void bfs(){
 
         Queue<int[][]> q = new LinkedList<>();
 
@@ -127,8 +139,8 @@ public class 미로탐색 {
 
                     // 목표 노드에 도착했을 때
                     if (nextNodeX == grid[0].length-1 && nextNodeY == grid.length-1 ) {
-
-                        minDistance.add()
+                        System.out.println("** last grid[currentY][currentX] = " + (grid[currentY][currentX] + 1));
+                        minDistance.add((grid[currentY][currentX] + 1));
                         continue;
                     }
 
@@ -150,7 +162,6 @@ public class 미로탐색 {
 
         System.out.println("********* while문 종료 **********");
 
-        return 0;
 
     };
 }
