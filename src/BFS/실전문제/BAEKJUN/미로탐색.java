@@ -3,6 +3,7 @@ package BFS.실전문제.BAEKJUN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -18,6 +19,7 @@ public class 미로탐색 {
     static int[] directionY = {0, 1, 0, -1};
 
     static boolean[][] visited;
+    static ArrayList minDistance = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -44,8 +46,8 @@ public class 미로탐색 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        grid = new int[N + 1][M + 1];
-        visited = new boolean[N + 1][M + 1];
+        grid = new int[N][M];
+        visited = new boolean[N][M];
 
         // 입력받은 문자열을 2차원 int 배열로 변환하기
         for (int i = 0; i < N; i++) {
@@ -56,8 +58,7 @@ public class 미로탐색 {
 
         }
 
-
-        bfs();
+        System.out.println(bfs());
 
     }
 
@@ -69,10 +70,7 @@ public class 미로탐색 {
 
         // 첫번째 노드 방문처리
         visited[0][0] = true;
-        int count = 0;
-
         q.offer(startNode);
-
 
         while (!q.isEmpty()) {
 
@@ -103,28 +101,45 @@ public class 미로탐색 {
                 // 남쪽 grid[1][0] = 1,               동쪽 grid[0][1] = 0
                 // 북쪽 gird[-1][0] = outOfIndex,     서쪽 grid[0][-1] = outOfIndex
 
-
                 // 옆이 벽면일 경우 제외
-                if (nextNodeX < 0 || nextNodeY < 0 || nextNodeX > grid[0].length - 1 || nextNodeY > grid.length -1 ) {
-                    System.out.println("옆면이 벽면임 = ");
+                if (nextNodeX < 0 || nextNodeY < 0 || nextNodeX > grid[0].length - 1 || nextNodeY > grid.length - 1 ) {
+                    System.out.println("@@@ 옆면이 벽면임 @@@︎︎︎");
                     continue;
 
                 }
 
                 System.out.println("grid[nextNodeY][nextNodeX] = " + grid[nextNodeY][nextNodeX]);
                 // i=0, nextX = 1, nextY = 0
+
+                /**
+                 *  101111 // 미로 데이터
+                 *  101010
+                 *  101011
+                 *  111011
+                 */
                 if (grid[nextNodeY][nextNodeX] == 1 && !visited[nextNodeY][nextNodeX]) {
                     System.out.println("----------"+i+"번째 큐에 넣는 조건 검사중!!----------");
                     System.out.println("nextNodeY = " + nextNodeY);
                     System.out.println("nextNodeX = " + nextNodeX);
 
+                    System.out.println("grid[0].length = " + grid[0].length);
+                    System.out.println("grid.length = " + grid.length);
+
+                    // 목표 노드에 도착했을 때
+                    if (nextNodeX == grid[0].length-1 && nextNodeY == grid.length-1 ) {
+
+                        minDistance.add()
+                        continue;
+                    }
+
+                    grid[nextNodeY][nextNodeX] = grid[currentY][currentX] + 1;
                     q.offer(new int[][]{{nextNodeY, nextNodeX}});
+
                     System.out.println("q에 nextNode 닮긴값 ==> ["+nextNodeY+"]["+nextNodeX+"]" );
-                    count++;
                     visited[currentY][currentX] = true;
                 }
 
-                System.out.println(" =========================== for문 종료 ========================");
+                System.out.println(" R=========================== for문 종료 ========================");
                 System.out.println();
             }
 
@@ -135,7 +150,7 @@ public class 미로탐색 {
 
         System.out.println("********* while문 종료 **********");
 
-        return count;
+        return 0;
 
     };
 }
