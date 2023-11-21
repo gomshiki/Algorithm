@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class 단지번호붙이기 {
 
@@ -33,8 +35,16 @@ public class 단지번호붙이기 {
      */
 
     static int[][] grid;
+    static StringBuilder sb = new StringBuilder();
+
+    static boolean[][] visited;
+
+    static int[] directionX = {1, 0, -1, 0};
+    static int[] directionY = {0, 1, 0, -1};
 
     public static void main(String[] args) throws IOException {
+
+
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,5 +62,51 @@ public class 단지번호붙이기 {
         }
 
         System.out.println(Arrays.deepToString(grid));
+
+
+    }
+
+    // BFS 함수 정의
+    static void bfs() {
+
+        Queue<int[]> queue = new LinkedList<>();
+
+        int startNodeX = 1;
+        int startNodeY = 1;
+
+        queue.offer(new int[]{startNodeY, startNodeX});
+
+        while (!queue.isEmpty()) {
+
+
+            for (int i = 1; i <= 4; i++) {
+
+
+                int[] currentNode = queue.poll();
+
+                int currentY = currentNode[0];
+                int currentX = currentNode[1];
+
+                int nextX = directionX[i] + currentX;
+                int nextY = directionY[i] + currentY;
+
+                if (nextX < 0 || nextY < 0 || nextX > grid[0].length || nextX > grid.length) {
+                    continue;
+                }
+
+                if (grid[nextY][nextX]==1 && !visited[nextY][nextX]) {
+
+                    queue.offer(new int[]{nextY, nextX});
+                    visited[currentY][currentX] = true;
+
+                }
+
+
+            }
+
+
+
+        }
+
     }
 }
