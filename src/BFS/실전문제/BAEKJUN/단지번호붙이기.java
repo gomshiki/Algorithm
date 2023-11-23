@@ -84,6 +84,8 @@ public class 단지번호붙이기 {
 
                 int[] currentNode = queue.poll();
 
+
+
                 int currentY = currentNode[0];
                 int currentX = currentNode[1];
 
