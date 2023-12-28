@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// 백준 2525번 오븐시계
+// 현재시간 + 요리시간을 (x 시간 x 분)으로 표시
 public class 오븐시계 {
 
     public static void main(String[] args) throws IOException {
