@@ -15,7 +15,6 @@ public class 너의평점은 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         HashMap<String, Double> scoreTable = new HashMap<>();
-        HashMap<String, Double> userScoreTable = new HashMap<>();
 
         scoreTable.put("A+", 4.5);
         scoreTable.put("A0", 4.0);
@@ -27,8 +26,11 @@ public class 너의평점은 {
         scoreTable.put("D0", 1.0);
         scoreTable.put("F", 0.0);
 
-        String[] getScores = new String[20];
-        double[] getClass = new double[20];
+
+        double sum = 0;
+        double totalScore = 0;
+
+        // 전공평점은 전공과목별 (학점 × 과목평점)의 합을 학점의 총합으로 나눈 값이다.
 
         for (int i = 0; i < 20; i++) {
 
@@ -38,17 +40,32 @@ public class 너의평점은 {
             if (inputDatas[2].equals("P")) {
                 continue;
             }
-            userScoreTable.put(inputDatas[2], Double.parseDouble(inputDatas[1]));
+
+
+            // 취득학점
+            double score = Double.parseDouble(inputDatas[1]);
+
+            // 학점 총합
+            totalScore += score;
+
+            String grade = inputDatas[2];
+
+            // 과목 평점
+            double standardScore = scoreTable.get(grade);
+
+            // (학점 * 과목평점)의 총합
+            sum += standardScore * score;
+
+
+
         }
 
-        double sum = 0;
+        System.out.println(sum / totalScore);
 
-        for (int i = 0; i < userScoreTable.size(); i++) {
 
-            // 1. 학생이 얻은 등급
-            userScoreTable.
 
-        }
+
+
 
 
     }
