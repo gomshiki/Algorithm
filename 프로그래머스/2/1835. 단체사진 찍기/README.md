@@ -1,6 +1,6 @@
 # [level 2] 단체사진 찍기 - 1835 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1835?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1835) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 06월 21일 15:48:27
+2024년 06월 21일 15:49:02
 
 ### 문제 설명
 
