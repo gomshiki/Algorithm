@@ -1,24 +1,40 @@
-import java.io.*;
-import java.util.StringTokenizer;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int[] array = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int A = array[0];
+        int B = array[1];
+        int C = array[2];
 
-        /** 스트림 : 입력장치와 프로그램 사이 단방향으로 연결해주는 역할 **/
-        /** InputStream :  입력받은 데이터를 바이트단위로 읽어드림(=Byte Stream) **/
-        /** InputStreamReader : 문자단위로 읽어드림 (=Character Stream) **/
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        sb.append(firstMethod(A, B, C)).append("\n")
+                .append(secondMethod(A, B, C)).append("\n")
+                .append(thirdMethod(A, B, C)).append("\n")
+                .append(fourthMethod(A, B, C)).append("\n");
 
-        StringTokenizer st = new StringTokenizer(bf.readLine(), " ");
+        System.out.println(sb);
 
-        int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());
-        int c = Integer.parseInt(st.nextToken());
+    }
 
-        System.out.println((a+b)%c);
-        System.out.println(((a%c)+(b%c))%c);
-        System.out.println((a*b)%c);
-        System.out.println(((a%c)*(b%c))%c);
+    static int firstMethod(int A, int B, int C) {
+        return (A + B) % C;
+    }
+
+    static int secondMethod(int A, int B, int C) {
+        return ((A % C) + (B % C)) % C;
+    }
+
+    static int thirdMethod(int A, int B, int C) {
+        return (A * B) % C;
+    }
+
+    static int fourthMethod(int A, int B, int C) {
+        return ((A % C) * (B % C)) % C;
     }
 }
