@@ -12,13 +12,7 @@ public class Main {
         int a = array[0];
         int b = array[1];
 
-        if(a > b){
-            sb.append(">");
-        }else if(a < b){
-            sb.append("<");
-        }else{
-            sb.append("==");
-        }
+        sb.append((a > b) ? ">" : (a < b) ? "<" : "==");
 
         System.out.println(sb.toString());
     }
