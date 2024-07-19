@@ -21,11 +21,11 @@ public class Main {
         // 재귀함수 수행
         makingStar(N, 1);
 
-        // 2중 For문으로 출력
-
+        // 출력
         for (char[] chars : star) {
-            System.out.println(new String(chars));
+            System.out.println(String.valueOf(chars));
         }
+
 
     }
 
