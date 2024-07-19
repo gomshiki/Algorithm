@@ -22,9 +22,11 @@ public class Main {
         makingStar(N, 1);
 
         // 출력
+        StringBuilder sb = new StringBuilder();
         for (char[] chars : star) {
-            System.out.println(String.valueOf(chars));
+           sb.append(String.valueOf(chars)).append("\n");
         }
+        System.out.println(sb);
 
 
     }
