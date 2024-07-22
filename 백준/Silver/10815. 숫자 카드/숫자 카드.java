@@ -38,17 +38,35 @@ public class Main {
          * 	    Timsort는 합병 정렬과 삽입 정렬을 결합한 하이브리드 알고리즘으로, 최선의 경우 시간 복잡도는 O(n)이며,
          * 	    평균 및 최악의 경우 시간 복잡도는 O(n log n)입니다.
          */
-
         Arrays.sort(cards);
 
         for (int i = 0; i < M; i++) {
             // binarySearch : 이진 탐색 반환 값으로 원하는 값이 있으면 해당 인덱스 반환, 없으면 음수 반환
-            int result = Arrays.binarySearch(cards, targetCards[i]);
+            // binarySearch 결과 : 4 -5 -2 1 2 -4 -4 0
+            // int result = Arrays.binarySearch(cards, targetCards[i]);
+            int result = binarySearch(cards, targetCards[i]);
             sb.append(result >= 0 ? 1 : 0).append(" ");
         }
         System.out.println(sb);
+    }
 
+    // 직접 이진탐색을 구현해보자
+    static int binarySearch(int[] arr, int key) {
+        int start = 0 ;
+        int end = arr.length - 1;
 
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (key < arr[mid]) {
+                end = mid - 1;
+            } else if (key > arr[mid]) {
+                start = mid + 1;
+            }else{
+                return mid;
+            }
+        }
+
+        return -1;
     }
 
 }
