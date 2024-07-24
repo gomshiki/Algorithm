@@ -3,31 +3,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// N과M2
-// https://www.acmicpc.net/problem/15650
 public class Main {
-
-    static int N, M;
-    static boolean[] visited;
     static int[] arr, result;
+    static int N , M;
+    static boolean[] visited;
     static StringBuilder sb = new StringBuilder();
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        // 배열 인수 초기화
-        visited = new boolean[N];
+        // 1~ N 까지 숫자를 배열에 담기
         arr = new int[N];
-        result = new int[M];
-
-        // 1 ~ N 까지 숫자를 생성 후 배열에 담기
         for (int i = 0; i < N; i++) {
             arr[i] = i + 1;
         }
+
+        // 선택한 숫자를 출력할 배열 초기화
+        result = new int[M];
+
+        // 방문 처리를 위한 배열 초기화
+        visited = new boolean[N];
 
         backTracking(0, 0);
         System.out.println(sb);
@@ -35,15 +32,15 @@ public class Main {
 
     static void backTracking(int index, int depth) {
         if (depth == M) {
-            for (int i = 0; i < M; i++) {
-                sb.append(result[i]).append(" ");
+            for (int i : result) {
+                sb.append(i).append(" ");
             }
             sb.append("\n");
             return;
         } else {
             for (int i = index; i < N; i++) {
                 if (!visited[i]) {
-                    visited[i] = true;
+                    visited[i]= true;
                     result[depth] = arr[i];
                     backTracking(i + 1, depth + 1);
                     visited[i] = false;
