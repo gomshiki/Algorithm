@@ -9,16 +9,13 @@ public class Main {
 
         String string = br.readLine();
 
-
-        int r = 31;
-        int sum = 0;
-
+        long result = 0;
+        long pow = 1;
         for (int i = 0; i < L; i++) {
-            int targetAlphabet = string.charAt(i) - 'a' + 1;
-            sum += targetAlphabet * Math.pow(r, i);
+            result += (string.charAt(i) - 'a' + 1) * pow;
+            pow = pow * 31 % 1234567891;
         }
-
-        System.out.println(sum);
+        System.out.println(result % 1234567891);
     }
 
 }
