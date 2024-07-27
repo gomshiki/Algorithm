@@ -8,26 +8,29 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-        int N = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine()); // 방문횟수 n
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
+
             if (a == 0) {
                 if (pq.isEmpty()) {
-                    System.out.println(-1);
-                } else {
-                    System.out.println(pq.poll());
+                    sb.append(-1).append("\n");
+                }else{
+                    sb.append(pq.poll()).append("\n");
                 }
-            } else {
+            }else{
                 for (int j = 0; j < a; j++) {
-                    String gift = st.nextToken();
-                    pq.offer(Integer.parseInt(gift));
+                    pq.add(Integer.parseInt(st.nextToken()));
                 }
             }
         }
+
+        System.out.println(sb.toString());
     }
 }
