@@ -65,7 +65,7 @@ public class Main {
             int nowMoveCnt = nowNode.moveCnt;
 
             // 도착지점 도착했을 경우
-            if (nowRow == H - 1 && nowCol == W - 1) {
+            if (nowRow == map.length - 1 && nowCol == map[0].length - 1) {
                 return nowMoveCnt;
             }
 
@@ -83,8 +83,7 @@ public class Main {
                     }
                 }
             }
-
-            // 4방 탐색
+            // K가 안남아있으면 4방 탐색
             for (int i = 0; i < 4; i++) {
                 int nextRow = dirRow[i] + nowRow;
                 int nextCol = dirCol[i] + nowCol;
@@ -95,6 +94,8 @@ public class Main {
                         visited[nextRow][nextCol][nowHorseCnt] = true;
                     }
                 }
+
+
             }
         }
 
@@ -113,6 +114,6 @@ public class Main {
     }
 
     static boolean validate(int row, int col) {
-        return row >= 0 && col >= 0 && row < H && col < W;
+        return row >= 0 && col >= 0 && row < map.length && col < map[0].length;
     }
 }
