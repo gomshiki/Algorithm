@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
  * 2. 풀이
  * 2.1 상하좌우 탐색을 위해 4방향 배열선언
  * 2.2 outer side 에서 탐색을 시작해야함
+ * 2.2.0 bfs 결과에 따른 "YES" "NO"를 담기위해 String result 변수를 "NO"로 초기화
  * 2.2.1 for(i++ < N) 중 map[row][col] == 0일 경우와 !visited[row][col] 일 경우 bfs 시작
  * 2.4 static boolean bfs(int row, int col) 메서드 선언
  * 2.4.1 bfs 시작 지점 방문 처리민 queue 에 저장
@@ -25,11 +26,10 @@ import java.util.StringTokenizer;
  * 2.6.2 if(!visited[nextRow][nextCol]) 방문하지 않았을 경우
  * 2.6.3 if(map[nextRow][nextCol] == 0 ) 일 경우
  * 2.6.4 queue에 다음 좌표 저장 및 방문처리
- * 2.7 bfs 결과가 true 면 StringBuilder에 "YES" 담기
- * 2.8 for문 다돌때까지 true가 없으면 StringBuilder에 "NO" 담기
+ * 2.7 bfs 결과가 true 면 result 변수에 "YES" 담기
  * <p>
  * 3. 출력
- * 3.1 StringBuilder 출력
+ *  3.1 result 변수 출력
  */
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +58,11 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             if (!visited[0][i] && map[0][i] == 0) {
-                if (bfs(0, i)) {
+             /*   if (bfs(0, i)) {
+                    System.out.println("YES");
+                    return;
+                }*/
+                if (dfs(0, i)) {
                     System.out.println("YES");
                     return;
                 }
@@ -97,5 +101,24 @@ public class Main {
 
     static boolean validate(int row, int col) {
         return row >= 0 && col >= 0 && row < m && col < n;
+    }
+
+    static boolean dfs(int row, int col) {
+        visited[row][col] = true;
+        if (row == m - 1) { return true; }
+
+        for (int i = 0; i < 4; i++) {
+            int nextRow = dirRow[i] + row;
+            int nextCol = dirCol[i] + col;
+
+            if (validate(nextRow, nextCol) && !visited[nextRow][nextCol]) {
+                if (map[nextRow][nextCol] == 0) {
+                    if (dfs(nextRow, nextCol)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false; // 모든 방향을 탐색해도 도달하지 못했다면 false 반환
     }
 }
