@@ -21,27 +21,10 @@ import java.util.Arrays;
  * 1.3 집을 칠하는 비용은 1_000 보다 작거나 같음
  * <p>
  * 2. 풀이
- * 2.1 예제 분석
- * <p>
- * 26 40 83 => 26 : int min1 = boolean[R] = true; Math.min(R,B)
- * 49 60 57 => 57 : int min2 = boolean[R] = true; Math.min(G,B); boolean[B] = true;
- * 13 89 99 => 13 : int min3 = Math.min(R,G,B)  new boolean[], boolean[R] = true;
- * 출력 = min1 + min2 + min3
- * <p>
- * dp = new int[N + 1][3];
- * int temp = Math.min(Math.min(R,G),B);
- * <p>
- * dp[0] =
- * dp[1] =
- * <p>
- * 71 39 44  => dp[0]
- * 32 83 55
- * 51 37 63
- * 89 29 100
- * 83 58 11
- * 65 13 15
- * 47 25 29 => int min7 = Math.min(
- * 60 66 19 => int min8 = Math.min(R,G,B)  new boolean[], boolean[min8] = true;
+ * 2.1 dp = new int[n+1][3]
+ * 2.1.1 dp[i][R] 의미 : arr[i][R] 의 값에 이전 행 arr[i-1][R]의 제외하고 가장 작은 값을 더함 Math.min(dp[i-1][G], dp[i-1][B])
+ * 2.1.1 dp[i][G] 의미 : arr[i][R] 의 값에 이전 행 arr[i-1][G]의 제외하고 가장 작은 값을 더함 Math.min(dp[i-1][G], dp[i-1][B])
+ * 2.1.1 dp[i][B] 의미 : arr[i][R] 의 값에 이전 행 arr[i-1][B]의 제외하고 가장 작은 값을 더함 Math.min(dp[i-1][G], dp[i-1][B])
  * <p>
  * <p>
  * 3. 출력
@@ -55,8 +38,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int n = Integer.parseInt(br.readLine());
-        arr = new int[n + 1][3];
-        dp = new int[n + 1][3];
+        arr = new int[n][3];
+        dp = new int[n][3];
 
         for (int i = 0; i < n; i++) {
             arr[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -64,16 +47,16 @@ public class Main {
 
         dp[0] = arr[0];
 
-        for (int i = 1; i < n + 1; i++) {
-            dp[i][R] = Math.min(dp[i - 1][G] + arr[i][R], dp[i - 1][B] + arr[i][R]);
-            dp[i][G] = Math.min(dp[i - 1][R] + arr[i][G], dp[i - 1][B] + arr[i][G]);
-            dp[i][B] = Math.min(dp[i - 1][R] + arr[i][B], dp[i - 1][G] + arr[i][B]);
+        for (int i = 1; i < n; i++) {
+            dp[i][R] = arr[i][R] + Math.min(dp[i - 1][G], dp[i - 1][B]);
+            dp[i][G] = arr[i][G] + Math.min(dp[i - 1][R], dp[i - 1][B]);
+            dp[i][B] = arr[i][B] + Math.min(dp[i - 1][R], dp[i - 1][G]);
         }
 
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < 3; i++) {
-            if (min > dp[n][i]) {
-                min = dp[n][i];
+            if (min > dp[n - 1][i]) {
+                min = dp[n - 1][i];
             }
         }
 
